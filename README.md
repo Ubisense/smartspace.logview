@@ -6,7 +6,7 @@ LogView allows client applications to subscribe to live platform log messages fr
 Full documentation of LogView is currently maintained on [Ubisense Docs](https://docs.ubisense.com).
 
 ## Getting Started
-Create an LogView instance, connect it, and then pass some ViewDef instances to the subscribe method. The named views (ProductLocations,Products,Workspaces in the example below) are configured at the server side. The targets will be updated as object properties change on the server side. You can also set onChange and onEstablish of the ViewDef to get callbacks when data changes or the view is reconnected.
+Create an LogView instance, start it, and then call ``.requestLog`` to subscribe to particular matching log messages.
 ```
 ...
 let lv = new LogView(anon);
