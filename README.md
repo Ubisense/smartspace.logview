@@ -21,7 +21,7 @@ lv.start().then(() => {
 
 ## Simple Usage
 
-The constructor takes a single arument which can be either:
+The constructor takes a single argument which can be either:
 * Missing, in which case the class connects to the authenticated hub, and the user must be logged in to the SmartSpace web site.  The user must be a member of the System.Web.LogViewer role.
 * A boolean, in which case true means to connect to the anonymous hub, which does not authenticate the user.  The anonymous user must be a member of the System.Web.LogViewer role.  If false, uses the authenticated hub.
 * A string, in which case this is the URL of the hub to which LogView will connect.
@@ -29,7 +29,7 @@ The constructor takes a single arument which can be either:
 The ``setTarget`` method takes either:
 * A function, in which case the function is called with a single argument which is the log item.
 * An object, in which case the object is assigned each log item as it arrives.
-* An object and a string property name, in which case obj[prop] is assigned each log item as it arrives.
+* An object and a string property name, in which case ``obj[prop]`` is assigned each log item as it arrives.
 
 The latter two methods are intended for use in reactive frameworks.
 In any case the log values delivered by LogView are objects with the following form:
@@ -42,7 +42,10 @@ In any case the log values delivered by LogView are objects with the following f
 }
 ```
 
-The ``requestLog`` method subscribes for log messages.  It takes up to three arguments:
+The ``start`` method attempts to connect to the hub to start receiving log messages.  It returns a promise, so ``.then`` can be used to request logs on success, or ``.catch`` can be used 
+to respond to connection errors.
+
+The ``requestLog`` method subscribes for log messages. The LogView instance must have been started before it is called. It takes up to three arguments:
 * The source, which is currently either "SmartSpace" or "ACS"
 * The filter to apply, which is a string to match in the message line.  If the filter starts and ends with '\\' then it is treated as an ECMAScript regex pattern to match in the message.
 * The log object, only used by "ACS" sources.  This is the object id of the log object to subscribe to, such as an ACS Assembly Line or Device.
